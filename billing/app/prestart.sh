@@ -7,4 +7,4 @@ python /levers/app/backend_pre_start.py
 alembic upgrade head
 
 # Create initial data in DB
-python /levers/app/initial_data.py
+#python /levers/app/initial_data.p

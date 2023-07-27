@@ -34,6 +34,7 @@ services:
     working_dir: /levers
     volumes:
       - ./app:/levers/app
+      - ./alembic:/levers/alembic
     command: /start-reload.sh
     networks:
       - levers

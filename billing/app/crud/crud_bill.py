@@ -39,13 +39,12 @@ class CRUDBill(CRUDBase[Bill, BillCreate, BillUpdate]):
 
         stmt = select(self.model)
 
-        import pdb; pdb.set_trace()
         if reference:
             stmt = stmt.join(self.model.subbills.and_(SubBillModel.reference.icontains(reference)))
         elif total_from:
-            stmt = stmt.where(self.model.total > total_from)
+            stmt = stmt.where(self.model.total >= total_from)
         elif total_to:
-            stmt = stmt.where(self.model.total < total_to)
+            stmt = stmt.where(self.model.total <= total_to)
 
         print(stmt)
 

@@ -32,9 +32,9 @@ class Settings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
-    #SQLALCHEMY_DATABASE_URI: Optional[str] = "postgresql://postgres:thefoxjumped@db/app"
+    SQLALCHEMY_DATABASE_URI: Optional[str] = "postgresql://postgres:thefoxjumped@db/app"
 
-    SQLALCHEMY_DATABASE_URI: Optional[str] = "postgresql://levers:levers@localhost/levers"
+    # SQLALCHEMY_DATABASE_URI: Optional[str] = "postgresql://levers:levers@localhost/levers"
 
     # @validator("SQLALCHEMY_DATABASE_URI", pre=True)
     # def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
