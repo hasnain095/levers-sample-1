@@ -8,6 +8,11 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
+COPY ./start-reload.sh /start-reload.sh
+RUN chmod +x /start-reload.sh
+
 COPY . .
 
-CMD ["uvicorn", "app.main:app", "--host=0.0.0.0", "--port=8888"]
+RUN python /app/app/backend_pre_start.py
+
+CMD ["/start-reload.sh"]
