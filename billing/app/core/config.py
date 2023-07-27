@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
-    SQLALCHEMY_DATABASE_URI: Optional[str] = "postgresql://postgres:thefoxjumped@db/app"
+    SQLALCHEMY_DATABASE_URI: Optional[str] = "postgresql://postgres:thefoxjumped@postgres-db/app"
 
     # SQLALCHEMY_DATABASE_URI: Optional[str] = "postgresql://levers:levers@localhost/levers"
 

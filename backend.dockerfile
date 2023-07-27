@@ -4,17 +4,13 @@ RUN mkdir /levers
 
 WORKDIR /levers
 
-COPY requirements.txt .
+COPY ./billing/requirements.txt .
 
 RUN pip install -r requirements.txt
 
 COPY ./start-reload.sh /start-reload.sh
 RUN chmod +x /start-reload.sh
 
-COPY ./ /levers
+COPY ./billing/ /levers
 
 ENV PYTHONPATH=/levers
-
-#RUN python /levers/app/backend_pre_start.py
-
-#CMD ["/start-reload.sh"]

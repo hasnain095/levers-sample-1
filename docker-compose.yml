@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  db:
+  postgres-db:
     image: postgres:latest
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
@@ -19,10 +19,10 @@ services:
       timeout: 3s
       retries: 3
 
-  backend:
+  fastapi-backend:
     restart: always
     depends_on:
-      db:
+      postgres-db:
         condition: service_healthy
     env_file:
       - .env
@@ -30,11 +30,11 @@ services:
       - "8888:8888"
     build:
       context: ./
-      dockerfile: backend.dockerfile
+      dockerfile: ./backend.dockerfile
     working_dir: /levers
     volumes:
-      - ./app:/levers/app
-      - ./alembic:/levers/alembic
+      - ./billing/app:/levers/app
+      - ./billing/alembic:/levers/alembic
     command: /start-reload.sh
     networks:
       - levers
