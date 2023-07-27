@@ -1,8 +1,8 @@
 FROM python:3.10.6
 
-RUN mkdir /app
+RUN mkdir /levers
 
-WORKDIR /app
+WORKDIR /levers
 
 COPY requirements.txt .
 
@@ -11,8 +11,10 @@ RUN pip install -r requirements.txt
 COPY ./start-reload.sh /start-reload.sh
 RUN chmod +x /start-reload.sh
 
-COPY . .
+COPY ./ /levers
 
-RUN python /app/app/backend_pre_start.py
+ENV PYTHONPATH=/levers
 
-CMD ["/start-reload.sh"]
+#RUN python /levers/app/backend_pre_start.py
+
+#CMD ["/start-reload.sh"]

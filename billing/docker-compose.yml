@@ -1,22 +1,46 @@
 version: "3.3"
 services:
   db:
-    image: postgres:12
+    image: postgres:latest
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
     env_file:
       - .env
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - levers
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "app"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
 
   backend:
+    restart: always
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
     ports:
       - "8888:8888"
     build:
       context: ./
       dockerfile: backend.dockerfile
+    working_dir: /levers
+    volumes:
+      - ./app:/levers/app
+    command: /start-reload.sh
+    networks:
+      - levers
+
+networks:
+  levers:
+    driver: bridge
 
 
 volumes:
